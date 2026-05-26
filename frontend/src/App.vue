@@ -4380,10 +4380,10 @@ async function logout() {
     await api('/api/auth/logout', { method: 'POST', body: JSON.stringify({}) });
   } finally {
     clearSession();
+    openPublicPage('home');
     showToast('Logged out.');
   }
 }
-
 onMounted(async () => {
   if (hasWindow) {
     const params = new URLSearchParams(window.location.search);
@@ -4396,7 +4396,6 @@ onMounted(async () => {
       showToast('Successfully logged in via OAuth!');
     }
   }
-
   const handledGitHubCallback = await handleGitHubCallback();
   if (hasWindow) {
     window.addEventListener('popstate', syncPublicPageFromBrowserPath);
